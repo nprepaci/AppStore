@@ -36,6 +36,11 @@ class FilterPopupVC: UIViewController {
   }
   // MARK: - Navigation
   
+  //Dismisses view when cancel is clicked
+  @IBAction func cancelButtonClicked(_ sender: Any) {
+    dismiss(animated: true, completion: nil)
+  }
+  
   @IBAction func applyButtonClicked(_ sender: Any) {
    // let mainView = storyboard?.instantiateViewController(identifier: "MainVC") as! ViewController
     //mainView.passDataToFilterScreenDelegate = self

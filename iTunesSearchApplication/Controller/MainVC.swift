@@ -29,7 +29,7 @@ class ViewController: UIViewController {
   var filteredByPriceResults: [Result] = []
   var filteredIndex: Int = 0
   var selectedCategory: String = ""
-  var filterByFreePaidAll: String = "All"
+  //var filterByFreePaidAll: String = "All"
   var didFilterResults: Bool = false
   var selectedRowForFilterPopup: Int = 0
   var returnCount: Int = Int()
@@ -112,7 +112,7 @@ class ViewController: UIViewController {
         //filteredByPriceResults = []
         tableView.reloadData()
       }
-      filterByFreePaidAll = "All"
+      //filterByFreePaidAll = "All"
       print("All")
       
     case 1: //Free
@@ -129,7 +129,7 @@ class ViewController: UIViewController {
         filteredResults = api.storedData.results.filter { $0.price == 0 }
         tableView.reloadData()
       }
-      filterByFreePaidAll = "Free"
+      //filterByFreePaidAll = "Free"
       print("free")
       
     case 2: //Paid
@@ -158,19 +158,19 @@ class ViewController: UIViewController {
         //filteredResults = api.storedData.results.filter { $0.price > 0 }
       // tableView.reloadData()
       }
-      filterByFreePaidAll = "Paid"
+     // filterByFreePaidAll = "Paid"
       print("paid")
     default:
       break
     }
   }
-  
-  func testCompletion(completionHandler: @escaping ([Result]) -> Void) {
-    if filterByFreePaidAll == "Paid" {
-      filteredResults = api.storedData.results.filter { $0.price > 0 }
-      completionHandler(self.filteredResults)
-    }
-  }
+//  
+//  func testCompletion(completionHandler: @escaping ([Result]) -> Void) {
+//    if filterByFreePaidAll == "Paid" {
+//      filteredResults = api.storedData.results.filter { $0.price > 0 }
+//      completionHandler(self.filteredResults)
+//    }
+//  }
   
   func performFilterOfResults(searchCriteria: String) {
     filteredResults = api.storedData.results.filter { $0.primaryGenreName.contains(searchCriteria) }

@@ -16,19 +16,21 @@ class FilterPopupVC: UIViewController {
   
   @IBOutlet weak var popupContainer: UIView!
   @IBOutlet weak var genreTableView: UITableView!
-  @IBOutlet weak var priceTableView: UITableView!
+  @IBOutlet weak var buttonBackgroundLayer: UIView!
   var passDataToMainViewDelegate: PassDataToMainViewDelegate?
   var selectedRow = 0
   var selectedCategory: String = String()
   var filterDataYN: Bool = Bool()
-  var pickerData: [String] = ["All", "Apple Watch Apps", "Books", "Business", "Developer Tools", "Education", "Entertainment", "Finance", "Food & Drink", "Graphic & Design", "Health & Fitness", "Kids", "Lifestyle", "Magazine & Newspaper", "Medical", "Music", "Navigation", "News", "Photo & Video", "Productivity", "Reference", "Shopping", "Social Networking", "Sports", "Travel", "Utilities", "Weather"]
+  var pickerData: [String] = ["All", "Apple Watch Apps", "Books", "Business", "Developer Tools", "Education", "Entertainment", "Finance", "Food & Drink", "Games", "Graphic & Design", "Health & Fitness", "Kids", "Lifestyle", "Magazine & Newspaper", "Medical", "Music", "Navigation", "News", "Photo & Video", "Productivity", "Reference", "Shopping", "Social Networking", "Sports", "Travel", "Utilities", "Weather"]
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    //adds rouned corners, but will be tied to specific edges in next line of code
+    buttonBackgroundLayer.layer.cornerRadius = 15
+    //rounds only specific corners of the view
+    buttonBackgroundLayer.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
     self.genreTableView.delegate = self
     self.genreTableView.dataSource = self
-    self.priceTableView.delegate = self
-    self.priceTableView.dataSource = self
     popupContainer.layer.cornerRadius = 15
     genreTableView.layer.cornerRadius = 10
   }
@@ -49,14 +51,6 @@ class FilterPopupVC: UIViewController {
      dismiss(animated: true, completion: nil)
   }
 }
-
-//extension FilterPopupVC: PassDataToFilterScreenDelegate {
-//  func passDataToFilterScreen(category: String, didFilterData: Bool, rowPreviouslySelected: Int) {
-//    selectedCategory = category
-//    filterDataYN = didFilterData
-//    selectedRow = rowPreviouslySelected
-//  }
-//}
 
 extension FilterPopupVC: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

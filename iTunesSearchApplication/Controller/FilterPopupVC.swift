@@ -16,6 +16,7 @@ class FilterPopupVC: UIViewController {
   
   @IBOutlet weak var popupContainer: UIView!
   @IBOutlet weak var genreTableView: UITableView!
+  @IBOutlet weak var priceTableView: UITableView!
   var passDataToMainViewDelegate: PassDataToMainViewDelegate?
   var selectedRow = 0
   var selectedCategory: String = String()
@@ -24,24 +25,25 @@ class FilterPopupVC: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    print("poopy doopy")
-    print("selected row", selectedRow)
-    //genreTableView.reloadData()
     self.genreTableView.delegate = self
     self.genreTableView.dataSource = self
-    
+    self.priceTableView.delegate = self
+    self.priceTableView.dataSource = self
     popupContainer.layer.cornerRadius = 15
     genreTableView.layer.cornerRadius = 10
   }
   // MARK: - Navigation
   
   @IBAction func applyButtonClicked(_ sender: Any) {
-    let mainView = storyboard?.instantiateViewController(identifier: "MainVC") as! ViewController
+   // let mainView = storyboard?.instantiateViewController(identifier: "MainVC") as! ViewController
     //mainView.passDataToFilterScreenDelegate = self
     
     passDataToMainViewDelegate?.passDataToMainView(category: selectedCategory, filterDataYN: filterDataYN, selectedRow: selectedRow)
     
-    DataManager.shared.viewController.performFilterOfResults(searchCriteria: selectedCategory)
+    //run filter function if user applies a filter
+    if (filterDataYN == true) {
+      DataManager.shared.viewController.performFilterOfResults(searchCriteria: selectedCategory)
+    }
     DataManager.shared.viewController.tableView.reloadData()
     //present(mainView, animated: true, completion: nil)
      dismiss(animated: true, completion: nil)
@@ -69,12 +71,13 @@ extension FilterPopupVC: UITableViewDelegate {
     //doing this removes filter on table view, therefore displaying all search results
     if (indexPath.row == 0) {
       filterDataYN = false
+      //saves selected category so it is redisplayed when user comes back to this VC
       selectedCategory = ""
       //if a filter category is selected, filter criteria is then assigned to variables to pass via delegate method
     } else {
       filterDataYN = true
+      //saves selected category so it is redisplayed when user comes back to this VC
       selectedCategory = pickerData[indexPath.row]
-      print(selectedCategory)
     }
   }
   

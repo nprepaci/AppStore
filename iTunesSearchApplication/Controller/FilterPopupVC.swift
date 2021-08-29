@@ -7,42 +7,54 @@
 
 import UIKit
 
-protocol PassDataDelegate {
-  func passData(category: String, filterDataYN: Bool, selectedRow: Int)
+//passes selected category, whether to apply a filter or not (e.g. did user select a category to filter by), and the selected row (to keep track of which row the checkmark should be applied to
+protocol PassDataToMainViewDelegate {
+  func passDataToMainView(category: String, filterDataYN: Bool, selectedRow: Int)
 }
 
 class FilterPopupVC: UIViewController {
   
   @IBOutlet weak var popupContainer: UIView!
   @IBOutlet weak var genreTableView: UITableView!
-  var delegate: PassDataDelegate?
+  var passDataToMainViewDelegate: PassDataToMainViewDelegate?
   var selectedRow = 0
   var selectedCategory: String = String()
   var filterDataYN: Bool = Bool()
-  var pickerData: [String] = [String]()
+  var pickerData: [String] = ["All", "Apple Watch Apps", "Books", "Business", "Developer Tools", "Education", "Entertainment", "Finance", "Food & Drink", "Graphic & Design", "Health & Fitness", "Kids", "Lifestyle", "Magazine & Newspaper", "Medical", "Music", "Navigation", "News", "Photo & Video", "Productivity", "Reference", "Shopping", "Social Networking", "Sports", "Travel", "Utilities", "Weather"]
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    pickerData = ["All", "Apple Watch Apps", "Books", "Business", "Developer Tools", "Education", "Entertainment", "Finance", "Food & Drink", "Graphic & Design", "Health & Fitness", "Kids", "Lifestyle", "Magazine & Newspaper", "Medical", "Music", "Navigation", "News", "Photo & Video", "Productivity", "Reference", "Shopping", "Social Networking", "Sports", "Travel", "Utilities", "Weather"]
-    
+    print("poopy doopy")
+    print("selected row", selectedRow)
+    //genreTableView.reloadData()
     self.genreTableView.delegate = self
     self.genreTableView.dataSource = self
     
     popupContainer.layer.cornerRadius = 15
     genreTableView.layer.cornerRadius = 10
-    
   }
   // MARK: - Navigation
   
   @IBAction func applyButtonClicked(_ sender: Any) {
-    delegate?.passData(category: selectedCategory, filterDataYN: filterDataYN, selectedRow: selectedRow)
+    let mainView = storyboard?.instantiateViewController(identifier: "MainVC") as! ViewController
+    //mainView.passDataToFilterScreenDelegate = self
+    
+    passDataToMainViewDelegate?.passDataToMainView(category: selectedCategory, filterDataYN: filterDataYN, selectedRow: selectedRow)
     
     DataManager.shared.viewController.performFilterOfResults(searchCriteria: selectedCategory)
     DataManager.shared.viewController.tableView.reloadData()
-    dismiss(animated: true, completion: nil)
-    
+    //present(mainView, animated: true, completion: nil)
+     dismiss(animated: true, completion: nil)
   }
 }
+
+//extension FilterPopupVC: PassDataToFilterScreenDelegate {
+//  func passDataToFilterScreen(category: String, didFilterData: Bool, rowPreviouslySelected: Int) {
+//    selectedCategory = category
+//    filterDataYN = didFilterData
+//    selectedRow = rowPreviouslySelected
+//  }
+//}
 
 extension FilterPopupVC: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

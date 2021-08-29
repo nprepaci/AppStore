@@ -22,10 +22,11 @@ struct Result: Codable {
   var kind, minimumOsVersion, trackCensoredName, fileSizeBytes: String
   var contentAdvisoryRating: String
   var genreIds: [String]
-  var primaryGenreName, trackName, releaseDate, sellerName, currentVersionReleaseDate, releaseNotes: String
+  var primaryGenreName, trackContentRating, trackName, releaseDate, sellerName, currentVersionReleaseDate, releaseNotes: String
   var primaryGenreId: Int
   var currency, description: String
   var price: Double
+  var averageUserRating: Double
 }
 
 class API {

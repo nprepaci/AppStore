@@ -38,6 +38,7 @@ class ViewController: UIViewController {
   }
   
   override func viewDidLoad() {
+   
     super.viewDidLoad()
     activityIndicator.hidesWhenStopped = true
     //Prevents search bar from displaying as the incorrect color
@@ -50,6 +51,7 @@ class ViewController: UIViewController {
     //be sure to make struing of IBM blank before publishing
     api.loadData(search: "ibm") { Results in
       self.filteredResults = self.api.storedData.results
+     
       self.tableView.reloadData()
     }
     self.title = "Apps"
@@ -62,25 +64,14 @@ class ViewController: UIViewController {
     navigationItem.searchController = searchController
   }
   
-  override func viewDidAppear(_ animated: Bool) {
-    print(selectedRowForFilterPopup, "selectedfilterrow")
-  }
-  
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     let detailsVC = segue.destination as! DetailsVC
-    //Determines whether user added a filter to the search results and passes the data from the appropriate array
-    if didFilterResults == false {
-      detailsVC.detailLabel = api.storedData.results[indexOfCurrentRow].description
-      detailsVC.appIcon = UIImage(data: try! Data(contentsOf: URL(string: api.storedData.results[indexOfCurrentRow].artworkUrl512) ?? URL.init(fileURLWithPath: "")))
-      //appDetailsVC.appIcon = UIImage(data: api.imageArrayOfData[indexOfCurrentRow])
-      detailsVC.appName = api.storedData.results[indexOfCurrentRow].trackName
-    } else {
       detailsVC.detailLabel = filteredResults[indexOfCurrentRow].description
       detailsVC.appIcon = UIImage(data: try! Data(contentsOf: URL(string: filteredResults[indexOfCurrentRow].artworkUrl512) ?? URL.init(fileURLWithPath: "")))
-      //appDetailsVC.appIcon = UIImage(data: api.imageArrayOfData[indexOfCurrentRow])
       detailsVC.appName = filteredResults[indexOfCurrentRow].trackName
-    }
-    
+    detailsVC.collectionViewData.append(["Rating", "\(filteredResults[indexOfCurrentRow].averageUserRating)"])
+    detailsVC.collectionViewData.append(["Age", filteredResults[indexOfCurrentRow].trackContentRating])
+    detailsVC.collectionViewData.append(["Size", filteredResults[indexOfCurrentRow].fileSizeBytes])
   }
   
   @IBAction func searchButtonClicked(_ sender: Any) {
@@ -140,47 +131,17 @@ class ViewController: UIViewController {
         filteredResults = filteredResults.filter { $0.price > 0 }
         tableView.reloadData()
       } else if (didFilterResults == false) {
-       // filterByFreePaidAll = "Paid"
-        //adds all api results back to the array, removing any filters
-        //might be redundant since you are doing this in the completion handler function
-        //filteredResults = api.storedData.results
-       // print(filteredResults)
         filteredResults = api.storedData.results.filter { $0.price > 0 }
         self.tableView.reloadData()
-        //Applies price based filter
-//        testCompletion { Result in
-//          DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-//            self.tableView.reloadData()
-//          }
-//          //self.tableView.reloadData()
-//          //print(self.filteredResults)
-//        }
-        //filteredResults = api.storedData.results.filter { $0.price > 0 }
-      // tableView.reloadData()
       }
-     // filterByFreePaidAll = "Paid"
       print("paid")
     default:
       break
     }
   }
-//  
-//  func testCompletion(completionHandler: @escaping ([Result]) -> Void) {
-//    if filterByFreePaidAll == "Paid" {
-//      filteredResults = api.storedData.results.filter { $0.price > 0 }
-//      completionHandler(self.filteredResults)
-//    }
-//  }
   
   func performFilterOfResults(searchCriteria: String) {
     filteredResults = api.storedData.results.filter { $0.primaryGenreName.contains(searchCriteria) }
-//    if (filterByPaid == true) {
-//      filteredResults = api.storedData.results.filter { $0.price > 0 }
-//    }
-  }
-  
-  func performFilterofAppPriceCategory() {
-    
   }
 }
 
@@ -203,19 +164,7 @@ extension ViewController: UITableViewDelegate {
 
 extension ViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
-    
     return filteredResults.count
-    
-    //var count: Int = Int()
-    //return api.storedData.resultCount
-   // if didFilterResults == false {
-      //returnCount = api.storedData.resultCount
-//      //returnCount = api.imageArrayOfData.count
-//    } else {
-//      returnCount = filteredResults.count
-//    }
-//    return returnCount
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -237,52 +186,6 @@ extension ViewController: UITableViewDataSource {
       cell.priceLabel.text = "$ \(String(filteredResults[indexPath.row].price))"
     }
     return cell
-   // if (filterByFreePaidAll == "All") {
-      
-      
-      //check if genre filter is appied
-      //if not, display all api items
-      //if genre is applied, display all items within that genre
-      
-    //} else if (filterByFreePaidAll == "Free") {
-      
-      //check if genre filter is applied,
-      //if applied, display all free apps within specified genre
-      //if not applied, display all free apps
-      
-      
-   // } else if (filterByFreePaidAll == "Paid") {
-      //check if genre filter is applied,
-      //if applied, display all paid apps within specified genre
-      //if not applied, display all paid apps
-    //}
-    
-    
-    //Returns all data from api without any filters
-    
-//    if (didFilterResults == false) {
-//      //cell.cellImage.image = UIImage(data: api.imageArrayOfData[indexPath.row])
-//      cell.cellImage.image = UIImage(data: try! Data(contentsOf: URL(string: api.storedData.results[indexPath.row].artworkUrl512) ?? URL.init(fileURLWithPath: "")))
-//      cell.label.text = api.storedData.results[indexPath.row].trackName
-//      //checks if app is free or not and displays the appropriate label
-//      if (api.storedData.results[indexPath.row].price == 0.00) {
-//        cell.priceLabel.text = "View"
-//      } else {
-//        cell.priceLabel.text = "$ \(String(api.storedData.results[indexPath.row].price))"
-//      }
-//
-//      //returns all data from api where price is free and/or if an additional genre filter is applied
-//    } else if (didFilterResults == true) {
-//      cell.cellImage.image = UIImage(data: try! Data(contentsOf: URL(string: filteredResults[indexPath.row].artworkUrl512) ?? URL.init(fileURLWithPath: "")))
-//      cell.label.text = filteredResults[indexPath.row].trackName
-//      //checks if app is free or not and displays the appropriate label
-//      if (filteredResults[indexPath.row].price == 0.00) {
-//        cell.priceLabel.text = "View"
-//      } else {
-//        cell.priceLabel.text = "$ \(String(filteredResults[indexPath.row].price))"
-//      }
-//    }
-//    return cell
   }
 }
 

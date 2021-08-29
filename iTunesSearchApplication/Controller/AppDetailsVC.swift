@@ -14,7 +14,6 @@ class AppDetailsVC: UIViewController {
   @IBOutlet weak var hStack: UIStackView!
   @IBOutlet weak var descriptionLabel: UILabel!
   
-  
   var url = URL(string: "")
   var appImage: UIImage?
   var appName: String?
@@ -31,8 +30,6 @@ class AppDetailsVC: UIViewController {
     self.navigationController?.isNavigationBarHidden = false
   }
   // MARK: - Navigation
-  
-  
   
   func loadImage() {
     DispatchQueue.global().async {

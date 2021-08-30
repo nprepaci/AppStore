@@ -30,7 +30,6 @@ struct Result: Codable {
 }
 
 class API {
-
   var storedData = Response(resultCount: Int.init(), results: [])
   func loadData(search: String, completionHandler: @escaping (Response) -> Void) {
     guard let url = URL(string:"https://itunes.apple.com/search?term=\(search)&entity=software&limit=14") else {

@@ -15,11 +15,11 @@ class CollectionViewCell: UICollectionViewCell {
   
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
   class var reuseIdentifier: String {
       return "CollectionViewCellReuseIdentifier"
   }
+  
   class var nibName: String {
       return "CollectionViewCell"
   }
@@ -28,5 +28,4 @@ class CollectionViewCell: UICollectionViewCell {
       self.detailLabel.text = name
     self.descriptionLabel.text = detail
   }
-
 }

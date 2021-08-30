@@ -71,7 +71,12 @@ class ViewController: UIViewController {
       detailsVC.appName = filteredResults[indexOfCurrentRow].trackName
     detailsVC.collectionViewData.append(["Rating", "\(filteredResults[indexOfCurrentRow].averageUserRating)"])
     detailsVC.collectionViewData.append(["Age", filteredResults[indexOfCurrentRow].trackContentRating])
+    detailsVC.collectionViewData.append(["Developer", filteredResults[indexOfCurrentRow].artistName])
     detailsVC.collectionViewData.append(["Size", filteredResults[indexOfCurrentRow].fileSizeBytes])
+    //adds each iphone screenshot to array on app detail view
+    for i in 0..<filteredResults[indexOfCurrentRow].screenshotUrls.count {
+    detailsVC.imageCollectionViewData.append([try! Data(contentsOf: URL(string: filteredResults[indexOfCurrentRow].screenshotUrls[i])!)])
+    }
   }
   
   @IBAction func searchButtonClicked(_ sender: Any) {
@@ -89,6 +94,9 @@ class ViewController: UIViewController {
     present(filteredDataVC, animated: true, completion: nil)
     //navigationController?.pushViewController(filteredDataVC, animated: true)
   }
+  
+  //Actions performed when the segmented control is changed
+  //Segmented control contains "All", "Free", and "Paid" options
   @IBAction func segmentedControlChanged(_ sender: Any) {
     switch segmentedControl.selectedSegmentIndex
     {
@@ -103,8 +111,6 @@ class ViewController: UIViewController {
         //filteredByPriceResults = []
         tableView.reloadData()
       }
-      //filterByFreePaidAll = "All"
-      print("All")
       
     case 1: //Free
       if (didFilterResults == true) {
@@ -120,9 +126,7 @@ class ViewController: UIViewController {
         filteredResults = api.storedData.results.filter { $0.price == 0 }
         tableView.reloadData()
       }
-      //filterByFreePaidAll = "Free"
-      print("free")
-      
+
     case 2: //Paid
       if (didFilterResults == true) {
         //Filters array by selected category
@@ -134,7 +138,6 @@ class ViewController: UIViewController {
         filteredResults = api.storedData.results.filter { $0.price > 0 }
         self.tableView.reloadData()
       }
-      print("paid")
     default:
       break
     }

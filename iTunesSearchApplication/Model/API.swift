@@ -22,7 +22,7 @@ struct Result: Codable {
   var kind, minimumOsVersion, trackCensoredName, fileSizeBytes: String
   var contentAdvisoryRating: String
   var genreIds: [String]
-  var primaryGenreName, trackContentRating, trackName, releaseDate, sellerName, currentVersionReleaseDate, releaseNotes: String
+  var primaryGenreName, artistName, trackContentRating, trackName, releaseDate, sellerName, currentVersionReleaseDate, releaseNotes: String
   var primaryGenreId: Int
   var currency, description: String
   var price: Double
@@ -32,7 +32,6 @@ struct Result: Codable {
 class API {
 
   var storedData = Response(resultCount: Int.init(), results: [])
-  //var imageArrayOfData = [Data]()
   func loadData(search: String, completionHandler: @escaping (Response) -> Void) {
     guard let url = URL(string: "https://itunes.apple.com/search?term=\(search)&entity=software&limit=10&primaryGenreName=medical") else {
       print("failed to fetch data")
@@ -45,11 +44,7 @@ class API {
           DispatchQueue.main.async {
             self.storedData.resultCount = response.resultCount
             self.storedData.results = response.results
-//            for i in 0..<self.storedData.resultCount {
-//              self.loadImage(url: self.storedData.results[i].artworkUrl512)
-//            }
             completionHandler(self.storedData)
-            //print(self.imageArrayOfData)
           }
           return
         }
@@ -58,17 +53,6 @@ class API {
     }
     .resume()
   }
-  
-//  func loadImage(url: String) {
-//    DispatchQueue.global().async {
-//      let data = try? Data(contentsOf: URL(string: url)!)
-//      DispatchQueue.main.async {
-//        self.imageArrayOfData.append(data ?? Data.init())
-//        self.reloadTableData()
-//      }
-//    }
-//  }
-  
   func reloadTableData() {
     DataManager.shared.viewController.tableView.reloadData()
   }

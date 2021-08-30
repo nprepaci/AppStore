@@ -20,10 +20,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tEY-kC-5tP">
                                 <rect key="frame" x="0.0" y="31" width="390" height="691"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" id="mJv-hA-SLI">
-                                    <rect key="frame" x="0.0" y="147.66666828502309" width="390" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </activityIndicatorView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="99" id="7mS-Eu-Ljp" customClass="CustomTableCell" customModule="iTunesSearchApplication" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="24.333333969116211" width="390" height="99"/>
@@ -77,6 +73,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" id="mJv-hA-SLI">
+                                <rect key="frame" x="0.0" y="356" width="390" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WcG-2I-mc8">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="32"/>
                                 <segments>
@@ -297,7 +297,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonBackground" destination="BjX-Db-bXl" id="3Tu-nL-LoS"/>
                         <outlet property="buttonBackgroundLayer" destination="BjX-Db-bXl" id="hpg-Sb-zrK"/>
+                        <outlet property="categoryDivider" destination="wuz-rA-eMj" id="NTq-YU-s31"/>
+                        <outlet property="filtersLabel" destination="wsl-Eb-mtY" id="EtU-Nh-x4O"/>
                         <outlet property="genreTableView" destination="Omd-cL-TTr" id="kae-31-Zeq"/>
                         <outlet property="popupContainer" destination="uZP-50-9LI" id="5fX-KC-tZ4"/>
                     </connections>
@@ -340,7 +343,7 @@
                                                                     <constraint firstAttribute="width" constant="15" id="8Do-lX-Hw1"/>
                                                                 </constraints>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I7i-vt-WsB">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I7i-vt-WsB">
                                                                 <rect key="frame" x="130" y="8" width="167" height="100"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                                 <nil key="textColor"/>

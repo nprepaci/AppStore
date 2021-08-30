@@ -22,7 +22,7 @@ struct Result: Codable {
   var kind, minimumOsVersion, trackCensoredName, fileSizeBytes: String
   var contentAdvisoryRating: String
   var genreIds: [String]
-  var primaryGenreName, artistName, trackContentRating, trackName, releaseDate, sellerName, currentVersionReleaseDate, releaseNotes, version: String
+  var primaryGenreName, artistName, trackContentRating, trackName, releaseDate, sellerName, currentVersionReleaseDate, version: String
   var primaryGenreId: Int
   var currency, description: String
   var price: Double
@@ -31,22 +31,29 @@ struct Result: Codable {
 
 class API {
   var storedData = Response(resultCount: Int.init(), results: [])
-  func loadData(search: String, completionHandler: @escaping (Response) -> Void) {
-    guard let url = URL(string:"https://itunes.apple.com/search?term=\(search)&entity=software&limit=14") else {
+  func loadData(search: String, activityIndicator: UIActivityIndicatorView, completionHandler: @escaping (Response) -> Void) {
+    activityIndicator.startAnimating()
+    guard let url = URL(string:"https://itunes.apple.com/search?term=\(search)&entity=software") else {
       print("failed to fetch data")
+      activityIndicator.stopAnimating()
       return
     }
     let request = URLRequest(url: url)
     URLSession.shared.dataTask(with: request) { data, response, error in
       if let data = data {
-        if let response = try? JSONDecoder().decode(Response.self, from: data) {
+        do {
+          let response = try JSONDecoder().decode(Response.self, from: data)
           DispatchQueue.main.async {
             self.storedData.resultCount = response.resultCount
             self.storedData.results = response.results
             completionHandler(self.storedData)
+            activityIndicator.stopAnimating()
           }
-          return
         }
+        catch let error {
+          print(error)
+        }
+        return
       }
       print("failed \(error?.localizedDescription ?? "unknown error")")
     }

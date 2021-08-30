@@ -15,6 +15,7 @@
 		7C19B35126D82B9600C58EDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C19B34F26D82B9600C58EDB /* LaunchScreen.storyboard */; };
 		7C19B35C26D830EB00C58EDB /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C19B35B26D830EB00C58EDB /* API.swift */; };
 		7C7B6BC526DCA33700469D15 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B6BC426DCA33700469D15 /* Tests.swift */; };
+		7C7B6BC726DD5EA900469D15 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7B6BC626DD5EA900469D15 /* Animations.swift */; };
 		7CB5C64226DC1CD7009A443F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB5C64026DC1CD7009A443F /* CollectionViewCell.swift */; };
 		7CB5C64326DC1CD7009A443F /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CB5C64126DC1CD7009A443F /* CollectionViewCell.xib */; };
 		7CB5C64626DC4B30009A443F /* ImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB5C64426DC4B30009A443F /* ImagesCollectionViewCell.swift */; };
@@ -47,6 +48,7 @@
 		7C19B35B26D830EB00C58EDB /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		7C7B6BC326DCA33600469D15 /* iTunesSearchApplicationTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iTunesSearchApplicationTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		7C7B6BC426DCA33700469D15 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		7C7B6BC626DD5EA900469D15 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		7CB5C64026DC1CD7009A443F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionViewCell.swift; path = iTunesSearchApplication/View/CollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		7CB5C64126DC1CD7009A443F /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CollectionViewCell.xib; path = iTunesSearchApplication/View/CollectionViewCell.xib; sourceTree = SOURCE_ROOT; };
 		7CB5C64426DC4B30009A443F /* ImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -96,10 +98,10 @@
 		7C19B34326D82B9200C58EDB /* iTunesSearchApplication */ = {
 			isa = PBXGroup;
 			children = (
-				7C7B6BC226DCA31C00469D15 /* Tests */,
 				7C19B35826D830B600C58EDB /* Model */,
 				7C19B35926D830C700C58EDB /* View */,
 				7C19B35A26D830CD00C58EDB /* Controller */,
+				7C7B6BC226DCA31C00469D15 /* Tests */,
 				7C19B34D26D82B9600C58EDB /* Assets.xcassets */,
 				7C19B34F26D82B9600C58EDB /* LaunchScreen.storyboard */,
 				7C19B35226D82B9600C58EDB /* Info.plist */,
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				7C19B34826D82B9200C58EDB /* MainVC.swift */,
+				7C7B6BC626DD5EA900469D15 /* Animations.swift */,
 				7CDCF3B526D890F000DFC5F4 /* DetailsVC.swift */,
 				7CDCF3BD26DAD6E400DFC5F4 /* FilterPopupVC.swift */,
 				7C19B34426D82B9200C58EDB /* AppDelegate.swift */,
@@ -262,6 +265,7 @@
 				7CDCF3B826D9A09D00DFC5F4 /* DataManager.swift in Sources */,
 				7C19B35C26D830EB00C58EDB /* API.swift in Sources */,
 				7CB5C64626DC4B30009A443F /* ImagesCollectionViewCell.swift in Sources */,
+				7C7B6BC726DD5EA900469D15 /* Animations.swift in Sources */,
 				7C19B34726D82B9200C58EDB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

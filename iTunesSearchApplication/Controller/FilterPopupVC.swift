@@ -17,6 +17,10 @@ class FilterPopupVC: UIViewController {
   @IBOutlet weak var popupContainer: UIView!
   @IBOutlet weak var genreTableView: UITableView!
   @IBOutlet weak var buttonBackgroundLayer: UIView!
+  @IBOutlet weak var categoryDivider: UIView!
+  @IBOutlet weak var buttonBackground: UIView!
+  @IBOutlet weak var filtersLabel: UILabel!
+  var animations = Animations()
   var passDataToMainViewDelegate: PassDataToMainViewDelegate?
   var selectedRow = 0
   var selectedCategory: String = String()
@@ -33,6 +37,7 @@ class FilterPopupVC: UIViewController {
     self.genreTableView.dataSource = self
     popupContainer.layer.cornerRadius = 15
     genreTableView.layer.cornerRadius = 10
+    animations.animateLines(view1: categoryDivider)
   }
   // MARK: - IBFUNCTIONS
   

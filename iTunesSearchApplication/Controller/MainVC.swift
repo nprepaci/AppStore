@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     tableView.delegate = self
     DataManager.shared.viewController = self
     //be sure to make struing of IBM blank before publishing
-    api.loadData(search: "ibm") { Results in
+    api.loadData(search: "", activityIndicator: activityIndicator) { Results in
       self.filteredResults = self.api.storedData.results
       
       self.tableView.reloadData()
@@ -208,20 +208,26 @@ extension ViewController: UITableViewDataSource {
 }
 
 extension ViewController: UISearchBarDelegate {
+  
+  //Function that controls actions that occur once the "Search" button is clicked
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     let searchBar = searchController.searchBar
-    activityIndicator.startAnimating()
+    
+    filteredResults.removeAll()
+    self.tableView.reloadData()
+    
+    //sets did filter results to false, as searching clears the filter
     didFilterResults = false
+    
     //resets filter choice to 0 -- this changes the checked item on the filter popup to "All"
     selectedRowForFilterPopup = 0
     
-    self.api.loadData(search: searchBar.text!) { Response in
+    self.api.loadData(search: searchBar.text!, activityIndicator: activityIndicator) { Response in
       //adds new search data from API to local array
       self.filteredResults = self.api.storedData.results
       self.tableView.reloadData()
       //dismisses search bar after search is clicked
       self.searchController.isActive = false
-      // self.activityIndicator.stopAnimating()
     }
   }
 }

@@ -13,19 +13,19 @@ class CollectionViewCell: UICollectionViewCell {
   @IBOutlet weak var detailLabel: UILabel!
   @IBOutlet weak var descriptionLabel: UILabel!
   
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+  override func awakeFromNib() {
+    super.awakeFromNib()
+  }
   class var reuseIdentifier: String {
-      return "CollectionViewCellReuseIdentifier"
+    return "CollectionViewCellReuseIdentifier"
   }
   
   class var nibName: String {
-      return "CollectionViewCell"
+    return "CollectionViewCell"
   }
   
   func configureCell(name: String, detail: String) {
-      self.detailLabel.text = name
+    self.detailLabel.text = name
     self.descriptionLabel.text = detail
   }
 }

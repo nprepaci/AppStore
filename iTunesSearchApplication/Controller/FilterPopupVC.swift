@@ -42,7 +42,7 @@ class FilterPopupVC: UIViewController {
   }
   
   @IBAction func applyButtonClicked(_ sender: Any) {
-   // let mainView = storyboard?.instantiateViewController(identifier: "MainVC") as! ViewController
+    // let mainView = storyboard?.instantiateViewController(identifier: "MainVC") as! ViewController
     //mainView.passDataToFilterScreenDelegate = self
     
     passDataToMainViewDelegate?.passDataToMainView(category: selectedCategory, filterDataYN: filterDataYN, selectedRow: selectedRow)
@@ -53,7 +53,7 @@ class FilterPopupVC: UIViewController {
     }
     DataManager.shared.viewController.tableView.reloadData()
     //present(mainView, animated: true, completion: nil)
-     dismiss(animated: true, completion: nil)
+    dismiss(animated: true, completion: nil)
   }
 }
 
@@ -81,7 +81,7 @@ extension FilterPopupVC: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-      cell.accessoryType = indexPath.row == selectedRow ? .checkmark : .none
+    cell.accessoryType = indexPath.row == selectedRow ? .checkmark : .none
   }
 }
 

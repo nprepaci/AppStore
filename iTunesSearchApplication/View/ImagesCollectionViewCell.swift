@@ -8,20 +8,19 @@
 import UIKit
 
 class ImagesCollectionViewCell: UICollectionViewCell {
-
+  
   @IBOutlet weak var appImage: UIImageView!
   
   override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    super.awakeFromNib()
+  }
   
   class var reuseIdentifier: String {
-      return "ImagesCollectionCellReuse"
+    return "ImagesCollectionCellReuse"
   }
   
   class var nibName: String {
-      return "ImagesCollectionViewCell"
+    return "ImagesCollectionViewCell"
   }
   
   func configureCell(image: UIImage) {

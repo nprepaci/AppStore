@@ -28,61 +28,76 @@ class ViewController: UIViewController {
   var selectedRowForFilterPopup: Int = 0
   var returnCount: Int = Int()
   var fileSizeMBorGB: Double = Double()
-  var isSearchBarEmpty: Bool {
-    return searchController.searchBar.text?.isEmpty ?? true
-  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    //Sets up activity indicator to hide when .stop is called
     activityIndicator.hidesWhenStopped = true
-    //Prevents search bar from displaying as the incorrect color
-    self.extendedLayoutIncludesOpaqueBars = true
-    //self.navigationController?.isNavigationBarHidden = true
+    
+    //Ensures navigation bar is not hidden
     self.navigationController?.isNavigationBarHidden = false
+    
+    //Sets tableview delegates to self
     tableView.dataSource = self
     tableView.delegate = self
+    
+    //Allows for refreshing of table view from another VC. Setting to self.
     DataManager.shared.viewController = self
-    //be sure to make struing of IBM blank before publishing
+    
+    //GET request from API. Once completed, completion handler executes
     api.loadData(search: "", activityIndicator: activityIndicator) { Results in
+      
+      //Appends results to local array
       self.filteredResults = self.api.storedData.results
       
+      //Reloads table to present data
       self.tableView.reloadData()
     }
-    self.title = "Apps"
+    //Sets searchbar delegate to current VC
     searchController.searchBar.delegate = self
+    
+    //Prevents search bar from displaying as the incorrect color
+    self.extendedLayoutIncludesOpaqueBars = true
+    
     //dims background when search icon is tapped
     searchController.obscuresBackgroundDuringPresentation = true
+    
     //adds placeholder to search field
     searchController.searchBar.placeholder = "Search Apps"
+    
     //adds search bar to UI
     navigationItem.searchController = searchController
+    
+    //Adds navigation controller title
+    self.title = "Apps"
   }
   
-  // MARK: - VIEWDIDLOAD
+  // MARK: - PREPARE FOR SEGUE
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     let detailsVC = segue.destination as! DetailsVC
     
     //Checks price in api results and passes appropriate value to app detail view
     if (filteredResults[indexOfCurrentRow].price == 0.00) {
       detailsVC.appPrice = "Free"
+      
+      //if not free, returns the price
     } else {
-      detailsVC.appPrice = "$ \(String(filteredResults[indexOfCurrentRow].price))"
+      detailsVC.appPrice = "$ \(String(filteredResults[indexOfCurrentRow].price ?? 0.00))"
     }
     
+    //Passes filtered result data to details VC
     detailsVC.detailLabel = filteredResults[indexOfCurrentRow].description
     detailsVC.appIcon = UIImage(data: try! Data(contentsOf: URL(string: filteredResults[indexOfCurrentRow].artworkUrl512) ?? URL.init(fileURLWithPath: "")))
     detailsVC.appName = filteredResults[indexOfCurrentRow].trackName
-    
-    //Rounds review to number user can understand
     detailsVC.collectionViewData.append(["Rating", "\(Double(round(filteredResults[indexOfCurrentRow].averageUserRating)))"])
     detailsVC.collectionViewData.append(["Age", filteredResults[indexOfCurrentRow].trackContentRating])
     detailsVC.collectionViewData.append(["Developer", filteredResults[indexOfCurrentRow].artistName])
     detailsVC.collectionViewData.append(["Category", filteredResults[indexOfCurrentRow].primaryGenreName])
     detailsVC.collectionViewData.append(["Version", filteredResults[indexOfCurrentRow].version])
+    detailsVC.collectionViewData.append(["Size", "\(String(round(Double(filteredResults[indexOfCurrentRow].fileSizeBytes ?? "") ?? 0.00 / Double(1000000.0)))) MB"])
     
-    //rounds bits to MB
-    detailsVC.collectionViewData.append(["Size", "\(String(round(Double(filteredResults[indexOfCurrentRow].fileSizeBytes)! / Double(1000000.0)))) MB"])
-    //adds each iphone screenshot to array on app detail view
+    //Adds each iphone screenshot to array on app detail view
     for i in 0..<filteredResults[indexOfCurrentRow].screenshotUrls.count {
       detailsVC.imageCollectionViewData.append([try! Data(contentsOf: URL(string: filteredResults[indexOfCurrentRow].screenshotUrls[i])!)])
     }
@@ -90,7 +105,7 @@ class ViewController: UIViewController {
   
   // MARK: - IBFUNCTIONS
   
-  //what occurs when filter button is clicked
+  //What occurs when search button is clicked
   @IBAction func searchButtonClicked(_ sender: Any) {
     self.searchController.isActive = true
   }
@@ -103,7 +118,6 @@ class ViewController: UIViewController {
     filteredDataVC.filterDataYN = didFilterResults
     filteredDataVC.selectedCategory = selectedCategory
     present(filteredDataVC, animated: true, completion: nil)
-    //navigationController?.pushViewController(filteredDataVC, animated: true)
   }
   
   //Actions performed when the segmented control is changed
@@ -111,42 +125,71 @@ class ViewController: UIViewController {
   @IBAction func segmentedControlChanged(_ sender: Any) {
     switch segmentedControl.selectedSegmentIndex
     {
-    case 0: //All
+    case 0: //Filtered by ALL
+      
+      //If user filtered search results
       if (didFilterResults == true) {
-        //resets filtered array to filter by category
+        
+        //Resets filtered array to filter by category
         filteredResults = api.storedData.results.filter { $0.primaryGenreName.contains(selectedCategory) }
+        
+        //Reloads tableview
         tableView.reloadData()
+        
+        //If user did not filter search results
       } else if (didFilterResults == false) {
-        //adds all api results back to the array, removing any filters
+        
+        //Adds all api results back to the array, removing any filters
         filteredResults = api.storedData.results
-        //filteredByPriceResults = []
+        
+        //reloads table view
         tableView.reloadData()
       }
       
     case 1: //Free
+      //If user filtered search results
       if (didFilterResults == true) {
+        
         //Filters array by selected category
         filteredResults = api.storedData.results.filter { $0.primaryGenreName.contains(selectedCategory) }
-        //applies additional price based filter
+        
+        //Applies additional price based filter
         filteredResults = filteredResults.filter { $0.price == 0 }
+        
+        //Reloads tableview
         tableView.reloadData()
+        
+        //If user did not filter search results
       } else if (didFilterResults == false) {
-        //adds all api results back to the array, removing any filters
-        //filteredResults = api.storedData.results
+        
         //applies price based filter
         filteredResults = api.storedData.results.filter { $0.price == 0 }
+        
+        //reloads tableview
         tableView.reloadData()
       }
       
     case 2: //Paid
+      
+      //If user filtered search results
       if (didFilterResults == true) {
+        
         //Filters array by selected category
         filteredResults = api.storedData.results.filter { $0.primaryGenreName.contains(selectedCategory) }
+        
         //Applies additional price based filter
-        filteredResults = filteredResults.filter { $0.price > 0 }
+        filteredResults = filteredResults.filter { $0.price ?? 0.00 > 0 }
+        
+        //reloads table view
         tableView.reloadData()
+        
+        //If user did not filter search results
       } else if (didFilterResults == false) {
-        filteredResults = api.storedData.results.filter { $0.price > 0 }
+        
+        //applies price based filter
+        filteredResults = api.storedData.results.filter { $0.price ?? 0.00 > 0 }
+        
+        //Reloads tableview
         self.tableView.reloadData()
       }
     default:
@@ -156,11 +199,11 @@ class ViewController: UIViewController {
   
   // MARK: - FUNCTIONS
   
+  //Filters resultes based on searchCriteria parameter. Called via the filterpopupVC
   func performFilterOfResults(searchCriteria: String) {
     filteredResults = api.storedData.results.filter { $0.primaryGenreName.contains(searchCriteria) }
   }
 }
-
 
 // MARK: - EXTENSIONS
 
@@ -173,6 +216,7 @@ extension ViewController: PassDataToMainViewDelegate {
   }
 }
 
+// MARK: - TABLE VIEW CODE
 extension ViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     indexOfCurrentRow = indexPath.row
@@ -201,18 +245,27 @@ extension ViewController: UITableViewDataSource {
     if (filteredResults[indexPath.row].price == 0.00) {
       cell.priceLabel.text = "View"
     } else {
-      cell.priceLabel.text = "$ \(String(filteredResults[indexPath.row].price))"
+      cell.priceLabel.text = "$ \(String(filteredResults[indexPath.row].price ?? 0.00))"
     }
     return cell
   }
 }
 
+// MARK: - SEARCH BAR CODE
 extension ViewController: UISearchBarDelegate {
   
   //Function that controls actions that occur once the "Search" button is clicked
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     let searchBar = searchController.searchBar
     
+    //Removes spaces from search, as searching does not appear to work with spaces
+    let removedSpaces = searchBar.text!.filter {!$0.isWhitespace}
+    
+    //Switches segmented control back to ALL apps
+    segmentedControl.selectedSegmentIndex = 0
+    segmentedControl.sendActions(for: UIControl.Event.valueChanged)
+    
+    //Clears array and reloads data. This allows for user awareness that a search is happening
     filteredResults.removeAll()
     self.tableView.reloadData()
     
@@ -222,10 +275,13 @@ extension ViewController: UISearchBarDelegate {
     //resets filter choice to 0 -- this changes the checked item on the filter popup to "All"
     selectedRowForFilterPopup = 0
     
-    self.api.loadData(search: searchBar.text!, activityIndicator: activityIndicator) { Response in
+    //search parameter is converted to string, allowing numbers to be entered in search criteria
+    self.api.loadData(search: String(removedSpaces), activityIndicator: activityIndicator) { Response in
+      
       //adds new search data from API to local array
       self.filteredResults = self.api.storedData.results
       self.tableView.reloadData()
+      
       //dismisses search bar after search is clicked
       self.searchController.isActive = false
     }

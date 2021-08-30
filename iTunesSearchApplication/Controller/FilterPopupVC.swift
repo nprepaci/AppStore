@@ -47,9 +47,6 @@ class FilterPopupVC: UIViewController {
   }
   
   @IBAction func applyButtonClicked(_ sender: Any) {
-    // let mainView = storyboard?.instantiateViewController(identifier: "MainVC") as! ViewController
-    //mainView.passDataToFilterScreenDelegate = self
-    
     passDataToMainViewDelegate?.passDataToMainView(category: selectedCategory, filterDataYN: filterDataYN, selectedRow: selectedRow)
     
     //run filter function if user applies a filter
@@ -57,7 +54,6 @@ class FilterPopupVC: UIViewController {
       DataManager.shared.viewController.performFilterOfResults(searchCriteria: selectedCategory)
     }
     DataManager.shared.viewController.tableView.reloadData()
-    //present(mainView, animated: true, completion: nil)
     dismiss(animated: true, completion: nil)
   }
 }

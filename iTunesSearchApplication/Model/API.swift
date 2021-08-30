@@ -19,13 +19,14 @@ struct Result: Codable {
   var supportedDevices, advisories: [String]
   var isGameCenterEnabled: Bool
   var features: [String]
-  var kind, minimumOsVersion, trackCensoredName, fileSizeBytes: String
+  var kind, minimumOsVersion, trackCensoredName: String
+  var fileSizeBytes: String? //optional, as this sometimes throws search errors
   var contentAdvisoryRating: String
   var genreIds: [String]
   var primaryGenreName, artistName, trackContentRating, trackName, releaseDate, sellerName, currentVersionReleaseDate, version: String
   var primaryGenreId: Int
   var currency, description: String
-  var price: Double
+  var price: Double?
   var averageUserRating: Double
 }
 

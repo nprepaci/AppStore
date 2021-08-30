@@ -54,8 +54,8 @@ class DetailsVC: UIViewController {
     appPriceLabel.layer.cornerRadius = 15
     appPriceLabel.layer.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
   }
-  // MARK: - FUNCTIONS
   
+  // MARK: - FUNCTIONS
   func registerNib() {
     let nib = UINib(nibName: CollectionViewCell.nibName, bundle: nil)
     collectionView?.register(nib, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
@@ -80,6 +80,7 @@ extension DetailsVC: UICollectionViewDataSource {
     
     var valueToReturn = 0
     
+    //Distinguishes between the two collection views and returns data to appropriate collection view
     if (collectionView == self.collectionView) {
       valueToReturn = collectionViewData.count
     } else if (collectionView == self.imageCollectionView) {
@@ -90,6 +91,7 @@ extension DetailsVC: UICollectionViewDataSource {
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
+    //Distinguishes between the two collection views and returns data to appropriate collection view
     if (collectionView == self.collectionView) {
       if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectionViewCell.reuseIdentifier, for: indexPath) as? CollectionViewCell {
         //gets data from index 0 & 1 for each indexpath.row
@@ -101,8 +103,6 @@ extension DetailsVC: UICollectionViewDataSource {
       }
     } else if (collectionView == self.imageCollectionView) {
       if let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: ImagesCollectionViewCell.reuseIdentifier, for: indexPath) as? ImagesCollectionViewCell {
-        //gets data from index 0 & 1 for each indexpath.row
-        //0 is manually entered field name, 1 is data from api
         let image = imageCollectionViewData[indexPath.row][0]
         cell.configureCell(image: (UIImage(data: image)!))
         return cell
@@ -114,6 +114,8 @@ extension DetailsVC: UICollectionViewDataSource {
 
 extension DetailsVC: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    
+    //Distinguishes between the two collection views and returns data to appropriate collection view
     if (collectionView == self.collectionView) {
       guard let cell: CollectionViewCell = Bundle.main.loadNibNamed(CollectionViewCell.nibName, owner: self, options: nil)?.first as? CollectionViewCell else {
         return CGSize.zero
@@ -136,9 +138,7 @@ extension DetailsVC: UICollectionViewDelegateFlowLayout {
       cell.setNeedsLayout()
       cell.layoutIfNeeded()
       let size: CGSize = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-      
       cgSizeToReturn = CGSize(width: size.width, height: size.height)
-      //return CGSize(width: size.width, height: 30)
     }
     return cgSizeToReturn
   }

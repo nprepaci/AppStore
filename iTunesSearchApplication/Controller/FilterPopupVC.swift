@@ -98,8 +98,3 @@ extension FilterPopupVC: UITableViewDataSource {
     return cell
   }
 }
-
-
-
-
-

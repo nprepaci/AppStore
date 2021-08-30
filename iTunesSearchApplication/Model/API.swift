@@ -22,7 +22,7 @@ struct Result: Codable {
   var kind, minimumOsVersion, trackCensoredName, fileSizeBytes: String
   var contentAdvisoryRating: String
   var genreIds: [String]
-  var primaryGenreName, artistName, trackContentRating, trackName, releaseDate, sellerName, currentVersionReleaseDate, releaseNotes: String
+  var primaryGenreName, artistName, trackContentRating, trackName, releaseDate, sellerName, currentVersionReleaseDate, releaseNotes, version: String
   var primaryGenreId: Int
   var currency, description: String
   var price: Double
@@ -33,7 +33,7 @@ class API {
 
   var storedData = Response(resultCount: Int.init(), results: [])
   func loadData(search: String, completionHandler: @escaping (Response) -> Void) {
-    guard let url = URL(string: "https://itunes.apple.com/search?term=\(search)&entity=software&limit=10&primaryGenreName=medical") else {
+    guard let url = URL(string:"https://itunes.apple.com/search?term=\(search)&entity=software&limit=14") else {
       print("failed to fetch data")
       return
     }

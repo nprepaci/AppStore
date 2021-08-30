@@ -27,6 +27,8 @@ class DetailsVC: UIViewController {
   var testString: String?
   var fileSize: String?
   var appPrice: String?
+  var appCategory: String?
+  var version: String?
   
   override func viewDidLoad() {
     super.viewDidLoad()

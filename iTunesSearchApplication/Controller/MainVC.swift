@@ -76,6 +76,9 @@ class ViewController: UIViewController {
     detailsVC.collectionViewData.append(["Rating", "\(Double(round(filteredResults[indexOfCurrentRow].averageUserRating)))"])
     detailsVC.collectionViewData.append(["Age", filteredResults[indexOfCurrentRow].trackContentRating])
     detailsVC.collectionViewData.append(["Developer", filteredResults[indexOfCurrentRow].artistName])
+    detailsVC.collectionViewData.append(["Category", filteredResults[indexOfCurrentRow].primaryGenreName])
+    detailsVC.collectionViewData.append(["Version", filteredResults[indexOfCurrentRow].version])
+    
     
     //rounds bits to MB
     detailsVC.collectionViewData.append(["Size", "\(String(round(Double(filteredResults[indexOfCurrentRow].fileSizeBytes)! / Double(1000000.0)))) MB"])

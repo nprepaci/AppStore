@@ -54,7 +54,7 @@ class DetailsVC: UIViewController {
     appPriceLabel.layer.cornerRadius = 15
     appPriceLabel.layer.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
   }
-  // MARK: - Navigation
+  // MARK: - FUNCTIONS
   
   func registerNib() {
     let nib = UINib(nibName: CollectionViewCell.nibName, bundle: nil)
@@ -72,6 +72,8 @@ class DetailsVC: UIViewController {
     }
   }
 }
+
+// MARK: - EXTENSIONS
 
 extension DetailsVC: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

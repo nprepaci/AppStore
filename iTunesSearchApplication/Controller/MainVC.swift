@@ -58,6 +58,7 @@ class ViewController: UIViewController {
     navigationItem.searchController = searchController
   }
   
+  // MARK: - VIEWDIDLOAD
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     let detailsVC = segue.destination as! DetailsVC
     
@@ -79,7 +80,6 @@ class ViewController: UIViewController {
     detailsVC.collectionViewData.append(["Category", filteredResults[indexOfCurrentRow].primaryGenreName])
     detailsVC.collectionViewData.append(["Version", filteredResults[indexOfCurrentRow].version])
     
-    
     //rounds bits to MB
     detailsVC.collectionViewData.append(["Size", "\(String(round(Double(filteredResults[indexOfCurrentRow].fileSizeBytes)! / Double(1000000.0)))) MB"])
     //adds each iphone screenshot to array on app detail view
@@ -88,14 +88,14 @@ class ViewController: UIViewController {
     }
   }
   
-  func convertBitsToMbOrGb() {
-    
-  }
+  // MARK: - IBFUNCTIONS
   
+  //what occurs when filter button is clicked
   @IBAction func searchButtonClicked(_ sender: Any) {
     self.searchController.isActive = true
   }
   
+  //What occurs when filter button is clicked
   @IBAction func filterButtonClicked(_ sender: Any) {
     let filteredDataVC = storyboard?.instantiateViewController(identifier: "FilterData") as! FilterPopupVC
     filteredDataVC.passDataToMainViewDelegate = self
@@ -154,11 +154,17 @@ class ViewController: UIViewController {
     }
   }
   
+  // MARK: - FUNCTIONS
+  
   func performFilterOfResults(searchCriteria: String) {
     filteredResults = api.storedData.results.filter { $0.primaryGenreName.contains(searchCriteria) }
   }
 }
 
+
+// MARK: - EXTENSIONS
+
+//delegate method for passing data to filter screen
 extension ViewController: PassDataToMainViewDelegate {
   func passDataToMainView(category: String, filterDataYN: Bool, selectedRow: Int) {
     selectedCategory = category

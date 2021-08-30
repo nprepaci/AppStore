@@ -34,7 +34,7 @@ class FilterPopupVC: UIViewController {
     popupContainer.layer.cornerRadius = 15
     genreTableView.layer.cornerRadius = 10
   }
-  // MARK: - Navigation
+  // MARK: - IBFUNCTIONS
   
   //Dismisses view when cancel is clicked
   @IBAction func cancelButtonClicked(_ sender: Any) {
@@ -56,6 +56,8 @@ class FilterPopupVC: UIViewController {
     dismiss(animated: true, completion: nil)
   }
 }
+
+// MARK: - EXTENSIONS
 
 extension FilterPopupVC: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

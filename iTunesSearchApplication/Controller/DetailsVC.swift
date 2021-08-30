@@ -14,9 +14,9 @@ class DetailsVC: UIViewController {
   @IBOutlet weak var appNameLabel: UILabel!
   @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet weak var imageCollectionView: UICollectionView!
+  @IBOutlet weak var appPriceLabel: UILabel!
   let customCell = CustomTableCell()
   var cgSizeToReturn = CGSize.init()
-  
   
   var collectionViewData: [[String]] = [[String]].init()
   var imageCollectionViewData: [[Data]] = [[Data]]()
@@ -26,6 +26,7 @@ class DetailsVC: UIViewController {
   var averageRating: Double?
   var testString: String?
   var fileSize: String?
+  var appPrice: String?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -33,6 +34,7 @@ class DetailsVC: UIViewController {
     appDetailLabel.text = detailLabel
     appImage.image = appIcon
     appNameLabel.text = appName
+    appPriceLabel.text = appPrice
     
     collectionView.dataSource = self
     collectionView.delegate = self
@@ -44,6 +46,11 @@ class DetailsVC: UIViewController {
     
     collectionView.layer.borderWidth = 0.5
     collectionView.layer.borderColor = UIColor.gray.cgColor
+    
+    appPriceLabel.clipsToBounds = true
+    appPriceLabel.backgroundColor = UIColor.init(red: 175/255, green: 185/255, blue: 186/255, alpha: 1)
+    appPriceLabel.layer.cornerRadius = 15
+    appPriceLabel.layer.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
   }
   // MARK: - Navigation
   
@@ -119,8 +126,8 @@ extension DetailsVC: UICollectionViewDelegateFlowLayout {
       guard let cell: ImagesCollectionViewCell = Bundle.main.loadNibNamed(ImagesCollectionViewCell.nibName, owner: self, options: nil)?.first as? ImagesCollectionViewCell else {
         print("size failed")
         return CGSize.zero
-        
       }
+      
       cell.configureCell(image: UIImage(data: imageCollectionViewData[indexPath.row][0])!)
       cell.setNeedsLayout()
       cell.layoutIfNeeded()

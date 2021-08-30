@@ -15,26 +15,24 @@ class ViewController: UIViewController {
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   @IBOutlet weak var filterButton: UIBarButtonItem!
   @IBOutlet weak var segmentedControl: UISegmentedControl!
-  //var passDataToFilterScreenDelegate: PassDataToFilterScreenDelegate?
+  
   var api = API()
   var localApiData: [Response] = []
   var indexOfCurrentRow = 0
- // var imageDataArray = [Data]()
   let searchController = UISearchController(searchResultsController: nil)
   var filteredResults: [Result] = []
   var filteredByPriceResults: [Result] = []
   var filteredIndex: Int = 0
   var selectedCategory: String = ""
-  //var filterByFreePaidAll: String = "All"
   var didFilterResults: Bool = false
   var selectedRowForFilterPopup: Int = 0
   var returnCount: Int = Int()
+  var fileSizeMBorGB: Double = Double()
   var isSearchBarEmpty: Bool {
     return searchController.searchBar.text?.isEmpty ?? true
   }
   
   override func viewDidLoad() {
-   
     super.viewDidLoad()
     activityIndicator.hidesWhenStopped = true
     //Prevents search bar from displaying as the incorrect color
@@ -47,7 +45,7 @@ class ViewController: UIViewController {
     //be sure to make struing of IBM blank before publishing
     api.loadData(search: "ibm") { Results in
       self.filteredResults = self.api.storedData.results
-     
+      
       self.tableView.reloadData()
     }
     self.title = "Apps"
@@ -62,17 +60,33 @@ class ViewController: UIViewController {
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     let detailsVC = segue.destination as! DetailsVC
-      detailsVC.detailLabel = filteredResults[indexOfCurrentRow].description
-      detailsVC.appIcon = UIImage(data: try! Data(contentsOf: URL(string: filteredResults[indexOfCurrentRow].artworkUrl512) ?? URL.init(fileURLWithPath: "")))
-      detailsVC.appName = filteredResults[indexOfCurrentRow].trackName
-    detailsVC.collectionViewData.append(["Rating", "\(filteredResults[indexOfCurrentRow].averageUserRating)"])
+    
+    //Checks price in api results and passes appropriate value to app detail view
+    if (filteredResults[indexOfCurrentRow].price == 0.00) {
+      detailsVC.appPrice = "Free"
+    } else {
+      detailsVC.appPrice = "$ \(String(filteredResults[indexOfCurrentRow].price))"
+    }
+    
+    detailsVC.detailLabel = filteredResults[indexOfCurrentRow].description
+    detailsVC.appIcon = UIImage(data: try! Data(contentsOf: URL(string: filteredResults[indexOfCurrentRow].artworkUrl512) ?? URL.init(fileURLWithPath: "")))
+    detailsVC.appName = filteredResults[indexOfCurrentRow].trackName
+    
+    //Rounds review to number user can understand
+    detailsVC.collectionViewData.append(["Rating", "\(Double(round(filteredResults[indexOfCurrentRow].averageUserRating)))"])
     detailsVC.collectionViewData.append(["Age", filteredResults[indexOfCurrentRow].trackContentRating])
     detailsVC.collectionViewData.append(["Developer", filteredResults[indexOfCurrentRow].artistName])
-    detailsVC.collectionViewData.append(["Size", filteredResults[indexOfCurrentRow].fileSizeBytes])
+    
+    //rounds bits to MB
+    detailsVC.collectionViewData.append(["Size", "\(String(round(Double(filteredResults[indexOfCurrentRow].fileSizeBytes)! / Double(1000000.0)))) MB"])
     //adds each iphone screenshot to array on app detail view
     for i in 0..<filteredResults[indexOfCurrentRow].screenshotUrls.count {
-    detailsVC.imageCollectionViewData.append([try! Data(contentsOf: URL(string: filteredResults[indexOfCurrentRow].screenshotUrls[i])!)])
+      detailsVC.imageCollectionViewData.append([try! Data(contentsOf: URL(string: filteredResults[indexOfCurrentRow].screenshotUrls[i])!)])
     }
+  }
+  
+  func convertBitsToMbOrGb() {
+    
   }
   
   @IBAction func searchButtonClicked(_ sender: Any) {
@@ -120,7 +134,7 @@ class ViewController: UIViewController {
         filteredResults = api.storedData.results.filter { $0.price == 0 }
         tableView.reloadData()
       }
-
+      
     case 2: //Paid
       if (didFilterResults == true) {
         //Filters array by selected category
@@ -171,11 +185,9 @@ extension ViewController: UITableViewDataSource {
     cell.priceLabel.clipsToBounds = true
     cell.priceLabel.backgroundColor = UIColor.init(red: 175/255, green: 185/255, blue: 186/255, alpha: 1)
     cell.priceLabel.layer.cornerRadius = 15
-    //checks if user applied filter to results. Pulls data from appropriate array if filtered vs. not filtered
-    
-    //new version, always referencing one single filtered array
     cell.cellImage.image = UIImage(data: try! Data(contentsOf: URL(string: filteredResults[indexPath.row].artworkUrl512) ?? URL.init(fileURLWithPath: "")))
     cell.label.text = filteredResults[indexPath.row].trackName
+    
     //checks if app is free or not and displays the appropriate label
     if (filteredResults[indexPath.row].price == 0.00) {
       cell.priceLabel.text = "View"
@@ -190,9 +202,6 @@ extension ViewController: UISearchBarDelegate {
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     let searchBar = searchController.searchBar
     activityIndicator.startAnimating()
-    //Clearing array before api call to prevent index out of range
-    //self.api.imageArrayOfData.removeAll()
-    //change filter to false to no longer use filtered results when performing a new search
     didFilterResults = false
     //resets filter choice to 0 -- this changes the checked item on the filter popup to "All"
     selectedRowForFilterPopup = 0

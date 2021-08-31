@@ -26,7 +26,7 @@ struct Result: Codable {
   var primaryGenreName, artistName, trackContentRating, trackName, releaseDate, sellerName, currentVersionReleaseDate, version: String
   var primaryGenreId: Int
   var currency, description: String
-  var price: Double?
+  var price: Double? //Optional, as this sometimes throws search errors
   var averageUserRating: Double
 }
 

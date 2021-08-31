@@ -25,7 +25,7 @@ class FilterPopupVC: UIViewController {
   var selectedRow = 0
   var selectedCategory: String = String()
   var filterDataYN: Bool = Bool()
-  var pickerData: [String] = ["All", "Apple Watch Apps", "Books", "Business", "Developer Tools", "Education", "Entertainment", "Finance", "Food & Drink", "Games", "Graphic & Design", "Health & Fitness", "Kids", "Lifestyle", "Magazine & Newspaper", "Medical", "Music", "Navigation", "News", "Photo & Video", "Productivity", "Reference", "Shopping", "Social Networking", "Sports", "Travel", "Utilities", "Weather"]
+  var pickerData: [String] = ["All", "Apple Watch Apps", "Book", "Business", "Developer Tools", "Education", "Entertainment", "Finance", "Food & Drink", "Games", "Graphic & Design", "Health & Fitness", "Kids", "Lifestyle", "Magazine & Newspaper", "Medical", "Music", "Navigation", "News", "Photo & Video", "Productivity", "Reference", "Shopping", "Social Networking", "Sports", "Travel", "Utilities", "Weather"]
   
   override func viewDidLoad() {
     super.viewDidLoad()

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 class DetailsVC: UIViewController {
   
@@ -46,13 +47,13 @@ class DetailsVC: UIViewController {
     registerNib()
     registerImageNib()
     
-    collectionView.layer.borderWidth = 0.5
-    collectionView.layer.borderColor = UIColor.gray.cgColor
+//  collectionView.layer.borderWidth = 0.5
+//  collectionView.layer.borderColor = UIColor.gray.cgColor
     
+    appNameLabel.adjustsFontSizeToFitWidth = true
     appPriceLabel.clipsToBounds = true
     appPriceLabel.backgroundColor = UIColor.init(red: 175/255, green: 185/255, blue: 186/255, alpha: 1)
     appPriceLabel.layer.cornerRadius = 15
-    appPriceLabel.layer.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
   }
   
   // MARK: - FUNCTIONS

@@ -46,7 +46,8 @@ class ViewController: UIViewController {
     DataManager.shared.viewController = self
     
     //GET request from API. Once completed, completion handler executes
-    api.loadData(search: "", activityIndicator: activityIndicator) { Results in
+    //Currently defaults to IBM on app launch
+    api.loadData(search: "ibm", activityIndicator: activityIndicator) { Results in
       
       //Appends results to local array
       self.filteredResults = self.api.storedData.results

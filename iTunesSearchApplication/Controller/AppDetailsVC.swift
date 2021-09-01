@@ -139,6 +139,7 @@ extension DetailsVC: UICollectionViewDelegateFlowLayout {
       cell.setNeedsLayout()
       cell.layoutIfNeeded()
       let size: CGSize = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+      
       cgSizeToReturn = CGSize(width: size.width, height: size.height)
     }
     return cgSizeToReturn

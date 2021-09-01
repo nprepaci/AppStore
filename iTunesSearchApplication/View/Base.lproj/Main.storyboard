@@ -380,6 +380,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="93" id="oia-3B-354"/>
                                                         </constraints>
+                                                        <inset key="scrollIndicatorInsets" minX="1" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ecN-pP-I5z">
                                                             <size key="itemSize" width="128" height="110.66666666666667"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>

@@ -96,7 +96,7 @@ class ViewController: UIViewController {
     detailsVC.collectionViewData.append(["Developer", filteredResults[indexOfCurrentRow].artistName])
     detailsVC.collectionViewData.append(["Category", filteredResults[indexOfCurrentRow].primaryGenreName])
     detailsVC.collectionViewData.append(["Version", filteredResults[indexOfCurrentRow].version])
-    detailsVC.collectionViewData.append(["Size", "\(String(round(Double(filteredResults[indexOfCurrentRow].fileSizeBytes ?? "") ?? 0.00 / Double(1000000.0)))) MB"])
+    detailsVC.collectionViewData.append(["Size", "\(String(round((Double(filteredResults[indexOfCurrentRow].fileSizeBytes ?? "") ?? 0.00) / Double(1000000.0)))) MB"])
     
     //Adds each iphone screenshot to array on app detail view
     for i in 0..<filteredResults[indexOfCurrentRow].screenshotUrls.count {

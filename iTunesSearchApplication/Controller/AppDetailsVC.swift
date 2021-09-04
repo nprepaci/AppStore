@@ -54,6 +54,14 @@ class DetailsVC: UIViewController {
     appPriceLabel.clipsToBounds = true
     appPriceLabel.backgroundColor = UIColor.init(red: 175/255, green: 185/255, blue: 186/255, alpha: 1)
     appPriceLabel.layer.cornerRadius = 15
+    
+    if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+          //flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+      imageCollectionView.autoresizingMask = .flexibleHeight
+        }
+    if let flowLayout = imageCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+          flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        }
   }
   
   // MARK: - FUNCTIONS
@@ -139,7 +147,7 @@ extension DetailsVC: UICollectionViewDelegateFlowLayout {
       cell.setNeedsLayout()
       cell.layoutIfNeeded()
       let size: CGSize = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-      
+      collectionView.autoresizingMask = .flexibleHeight
       cgSizeToReturn = CGSize(width: size.width, height: size.height)
     }
     return cgSizeToReturn

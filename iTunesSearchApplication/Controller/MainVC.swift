@@ -28,6 +28,7 @@ class ViewController: UIViewController {
   var selectedRowForFilterPopup: Int = 0
   var returnCount: Int = Int()
   var fileSizeMBorGB: Double = Double()
+  var currentAppliedPriceFilter: String = "All"
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -146,6 +147,7 @@ class ViewController: UIViewController {
         //reloads table view
         tableView.reloadData()
       }
+      currentAppliedPriceFilter = "All"
       
     case 1: //Free
       //If user filtered search results
@@ -169,6 +171,7 @@ class ViewController: UIViewController {
         //reloads tableview
         tableView.reloadData()
       }
+      currentAppliedPriceFilter = "Free"
       
     case 2: //Paid
       
@@ -193,6 +196,8 @@ class ViewController: UIViewController {
         //Reloads tableview
         self.tableView.reloadData()
       }
+      currentAppliedPriceFilter = "Paid"
+      
     default:
       break
     }

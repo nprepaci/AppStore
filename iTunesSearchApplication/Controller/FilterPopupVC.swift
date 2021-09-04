@@ -52,14 +52,24 @@ class FilterPopupVC: UIViewController {
     //run filter function if user applies a filter
     if (filterDataYN == true) {
       DataManager.shared.viewController.performFilterOfResults(searchCriteria: selectedCategory)
+      resetSegmentedControl()
       
       //if no filter is applied (e.g. a user switches back to the "All" option), removes filter by adding api results back to the filtered data array
       //Applies regardless of whether data was previous filtered. Could optimize by only triggering this if a user goes from a filtered option to non filtered option.
     } else if (filterDataYN == false) {
       DataManager.shared.viewController.filteredResults = DataManager.shared.viewController.api.storedData.results
+      resetSegmentedControl()
     }
     DataManager.shared.viewController.tableView.reloadData()
     dismiss(animated: true, completion: nil)
+  }
+  
+  // MARK: - FUNCTIONS
+  
+  // Resets segmented control (price filter) to "All" when category is modified
+  func resetSegmentedControl() {
+    DataManager.shared.viewController.segmentedControl.selectedSegmentIndex = 0
+    DataManager.shared.viewController.segmentedControl.sendActions(for: UIControl.Event.valueChanged)
   }
 }
 

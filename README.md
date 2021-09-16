@@ -32,6 +32,10 @@ Clicking on an app that is returned via search will bring up the app detail scre
 
 **Please note - when a new search is performed, all filters are cleared**
 
+## App Images
+
+[My Website - Projects](https://www.nicholasrepaci.com/projects)
+
 ## Help
 
 Submit a [GitHub Issues request](https://github.com/nprepaci/iTunesSearchApp/issues). 

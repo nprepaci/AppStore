@@ -17,20 +17,20 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ImD-4Q-XDI">
-                        <rect key="frame" x="24" y="25" width="169" height="309"/>
+                        <rect key="frame" x="0.0" y="0.0" width="217" height="359"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="309" id="GVM-Ia-F8T"/>
-                            <constraint firstAttribute="width" constant="169" id="PG1-cc-aIK"/>
+                            <constraint firstAttribute="height" constant="359" id="GVM-Ia-F8T"/>
+                            <constraint firstAttribute="width" constant="217" id="PG1-cc-aIK"/>
                         </constraints>
                     </imageView>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="ImD-4Q-XDI" secondAttribute="trailing" constant="24" id="1Bd-rC-pXe"/>
-                <constraint firstAttribute="bottom" secondItem="ImD-4Q-XDI" secondAttribute="bottom" constant="25" id="86W-8C-tu1"/>
-                <constraint firstItem="ImD-4Q-XDI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="24" id="IaI-WZ-6yF"/>
-                <constraint firstItem="ImD-4Q-XDI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="25" id="pID-Pq-Dcm"/>
+                <constraint firstAttribute="trailing" secondItem="ImD-4Q-XDI" secondAttribute="trailing" id="1Bd-rC-pXe"/>
+                <constraint firstAttribute="bottom" secondItem="ImD-4Q-XDI" secondAttribute="bottom" id="86W-8C-tu1"/>
+                <constraint firstItem="ImD-4Q-XDI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="IaI-WZ-6yF"/>
+                <constraint firstItem="ImD-4Q-XDI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="pID-Pq-Dcm"/>
             </constraints>
             <size key="customSize" width="217" height="359"/>
             <connections>

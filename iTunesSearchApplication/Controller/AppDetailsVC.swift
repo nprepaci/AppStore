@@ -19,8 +19,8 @@ class DetailsVC: UIViewController {
   let customCell = CustomTableCell()
   var cgSizeToReturn = CGSize.init()
   
-  var collectionViewData: [[String]] = [[String]].init()
-  var imageCollectionViewData: [[Data]] = [[Data]]()
+  var collectionViewData: [[String]] = [[String]]()
+  var imageCollectionViewData: [Data] = [Data]()
   var detailLabel: String?
   var appIcon: UIImage?
   var appName: String?
@@ -55,13 +55,13 @@ class DetailsVC: UIViewController {
     appPriceLabel.backgroundColor = UIColor.init(red: 175/255, green: 185/255, blue: 186/255, alpha: 1)
     appPriceLabel.layer.cornerRadius = 15
     
-    if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-          //flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-      imageCollectionView.autoresizingMask = .flexibleHeight
-        }
-    if let flowLayout = imageCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-          flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        }
+//    if let flowLayout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+//          //flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+//      imageCollectionView.autoresizingMask = .flexibleHeight
+//        }
+//    if let flowLayout = imageCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+//          flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+       // }
   }
   
   // MARK: - FUNCTIONS
@@ -112,8 +112,9 @@ extension DetailsVC: UICollectionViewDataSource {
       }
     } else if (collectionView == self.imageCollectionView) {
       if let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: ImagesCollectionViewCell.reuseIdentifier, for: indexPath) as? ImagesCollectionViewCell {
-        let image = imageCollectionViewData[indexPath.row][0]
+        let image = imageCollectionViewData[indexPath.row]
         cell.configureCell(image: (UIImage(data: image)!))
+        cell.layer.cornerRadius = 10
         return cell
       }
     }
@@ -143,7 +144,7 @@ extension DetailsVC: UICollectionViewDelegateFlowLayout {
         return CGSize.zero
       }
       
-      cell.configureCell(image: UIImage(data: imageCollectionViewData[indexPath.row][0])!)
+      cell.configureCell(image: UIImage(data: imageCollectionViewData[indexPath.row])!)
       cell.setNeedsLayout()
       cell.layoutIfNeeded()
       let size: CGSize = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)

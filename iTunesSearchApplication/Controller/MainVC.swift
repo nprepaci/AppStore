@@ -92,6 +92,9 @@ class ViewController: UIViewController {
     detailsVC.detailLabel = filteredResults[indexOfCurrentRow].description
     detailsVC.appIcon = UIImage(data: try! Data(contentsOf: URL(string: filteredResults[indexOfCurrentRow].artworkUrl512) ?? URL.init(fileURLWithPath: "")))
     detailsVC.appName = filteredResults[indexOfCurrentRow].trackName
+    
+    //Data for horizontal scrolling collection view of app details
+    // This is a 2D array so we can access both a label (e.g. rating) and the actual data tied to it
     detailsVC.collectionViewData.append(["Rating", "\(Double(round(filteredResults[indexOfCurrentRow].averageUserRating)))"])
     detailsVC.collectionViewData.append(["Age", filteredResults[indexOfCurrentRow].trackContentRating])
     detailsVC.collectionViewData.append(["Developer", filteredResults[indexOfCurrentRow].artistName])
@@ -101,13 +104,13 @@ class ViewController: UIViewController {
     
     //Adds each iphone screenshot to array on app detail view
     for i in 0..<filteredResults[indexOfCurrentRow].screenshotUrls.count {
-      detailsVC.imageCollectionViewData.append([try! Data(contentsOf: URL(string: filteredResults[indexOfCurrentRow].screenshotUrls[i])!)])
+      detailsVC.imageCollectionViewData.append(try! Data(contentsOf: URL(string: filteredResults[indexOfCurrentRow].screenshotUrls[i])!))
     }
   }
   
   // MARK: - IBFUNCTIONS
   
-  //What occurs when search button is clicked
+  //What occurs when search icon (magnifying glass) is clicked
   @IBAction func searchButtonClicked(_ sender: Any) {
     self.searchController.isActive = true
   }

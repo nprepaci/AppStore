@@ -1,3 +1,8 @@
+<p align="center">
+  <img width="400" height="400" src="https://user-images.githubusercontent.com/23087566/139608465-2a515503-e2f6-4104-a49f-6d2065794184.png">
+</p>
+
+
 # iTunesSearchApp
 
 iTunesSearchApp utilizes the [Apple's iTunes Search API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html) to fetch app data, similar to the iOS App Store. Users can search for any app currently published on the app store. Users can filter search results by price. Users can further refine search results by category via the filter screen. Once a user is settled on search results, an app from the list can be selected, allowing users to view app details.
@@ -32,9 +37,15 @@ Clicking on an app that is returned via search will bring up the app detail scre
 
 **Please note - when a new search is performed, all filters are cleared**
 
-## App Images
+## App Gifs
 
 [My Website - Projects](https://www.nicholasrepaci.com/projects)
+
+<p float="center">
+  <img src="https://user-images.githubusercontent.com/23087566/139608396-fded0432-ddf9-41e8-9198-594b8f8e7064.gif" width="300" />
+  <img src="https://user-images.githubusercontent.com/23087566/139608405-03763ad2-2250-41a1-9d10-1c48577b0000.gif" alt="animated" width="300" /> 
+  <img src="https://user-images.githubusercontent.com/23087566/139608413-2fe525b5-a3e6-4ee5-a2f2-9a2174bd69d0.gif" width="300" />
+</p>
 
 ## Help
 

@@ -3,7 +3,7 @@
 </p>
 
 
-# iTunesSearchApp
+# AppStore - iOS
 
 iTunesSearchApp utilizes the [Apple's iTunes Search API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html) to fetch app data, similar to the iOS App Store. Users can search for any app currently published on the app store. Users can filter search results by price. Users can further refine search results by category via the filter screen. Once a user is settled on search results, an app from the list can be selected, allowing users to view app details.
 
